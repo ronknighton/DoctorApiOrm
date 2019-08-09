@@ -126,7 +126,7 @@ class Provider(Base):
 
     def get_all_by_zip(self, zip):
         providers_results = db.session.query(Provider, Comment).outerjoin(Comment, Comment.NPI == Provider.NPI) \
-            .filter_by(PostalCode=zip).all()
+            .filter(Provider.PostalCode == zip).all()
         providers = make_providers_from_join(providers_results)
         db.session.close()
         return providers
